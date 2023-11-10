@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Public Charger Port Locator</title>
+        <div class="search-container">
+            <h1>CHARGE!</h1>
+                
+            <!-- <form action="search-results.html" method="get">
+                <label for="search">Search:</label>
+                <input type="text" id="search" name="q" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form> -->
+
+            <div class="container">
+                <label for="charging_place">Enter Charging Location:</label>
+                <input type="text" id="charging_place" placeholder="Enter location name...">
+                <button onclick="searchChargingLocation()">Search</button>
+            </div>
+
+            <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+            <script src="search-button.js"></script>
+
+        </div>
+
+        <style>
+            .search-container {
+                background-image: url('https://cdn.mos.cms.futurecdn.net/6J6TSLANuxmXVbaPJvjBYG.jpg'); /* Replace 'your-image.jpg' with the path to your background image */
+                background-size: cover; /* Adjust to your preference */
+                padding: 20px; /* Add padding to the container to make the background visible */
+            }
+
+            .search-container h1 {
+                color: rgb(255, 255, 255); /* Set text color for better visibility on the background image */
+            }
+
+            .search-container {
+                background-image: url('https://cdn.mos.cms.futurecdn.net/6J6TSLANuxmXVbaPJvjBYG.jpg');
+                background-size: cover;
+                padding: 20px;
+            }
+    
+            .search-container h1 {
+                color: rgb(255, 255, 255);
+            }
+
+            #map {
+                height: 500px;
+                width: 100%;
+            }
+        </style>
+
+        <!-- Replace 'YOUR_API_KEY' with your actual API key -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkQIwSNERatxV9hI7avboGFsSqlqcMOfw&callback=initMap" async defer></script>
+        <script src="map.js"></script>
+
+    </head>
+    <body>
+        <div id="map"></div>
+
+        <script>
+            function initMap() {
+              // Your map customization code here
+              var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 5.3515, lng: 100.3020 },
+                zoom: 15
+              });
+            }
+        </script>
+    </body>
+    <foot>
+        <div>
+            <button id="pageButton">Home</button>
+            <button id="openDrawerFromBottom">Favourites</button>
+            <button id="openRightDrawer">Settings</button>
+            <button id="addButton">Add Location</button>
+        </div>
+    
+        <script>
+            document.getElementById('pageButton').addEventListener('click', function () {
+                window.location.href = 'homepage.html';
+            });
+            var isDrawerOpen = false;
+            document.getElementById('openDrawerFromBottom').addEventListener('click', function () {
+                var drawer = document.getElementById('bottomDrawer');
+    
+            if (!isDrawerOpen) {
+                drawer.style.bottom = '0';
+                isDrawerOpen = true;
+            } else {
+                drawer.style.bottom = '-100%'; // Adjust this value to hide the drawer
+                isDrawerOpen = false;
+            }
+            });
+            var isRightDrawerOpen = false;
+
+            document.getElementById('openRightDrawer').addEventListener('click', function () {
+                var rightDrawer = document.getElementById('rightDrawer');
+
+            if (!isRightDrawerOpen) {
+                rightDrawer.style.right = '0';
+                isRightDrawerOpen = true;
+            } else {
+                rightDrawer.style.right = '-300px'; // Adjust this value to hide the drawer
+                isRightDrawerOpen = false;
+            }
+            });
+            document.getElementById('addButton').addEventListener('click', function () {
+                window.open('suggestion.html', '_blank');
+            });
+        </script>
+    </foot>
+
+    
+    <style>
+        #bottomDrawer {
+            position: fixed;
+            bottom: -100%; /* Initially hidden below the screen */
+            left: 0;
+            width: 100%;
+            height: 300px; /* Adjust the height as needed */
+            background-color: #fffc43;
+            color: rgb(255, 60, 0);
+            transition: bottom 0.3s; /* Add a smooth transition effect */
+        }
+    
+        #drawerContent {
+            padding: 10px;
+        }
+    </style>
+    
+    <div id="bottomDrawer">
+        <div id="drawerContent">
+            <h1>Favourites</h1>
+            <p>Drawer Content</p>
+            <button id="closeDrawerFromBottom">Close Drawer</button>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('closeDrawerFromBottom').addEventListener('click', function () {
+            var drawer = document.getElementById('bottomDrawer');
+            drawer.style.bottom = '-100%'; // Adjust this value to hide the drawer
+            isDrawerOpen = false;
+        });
+    </script>
+
+    
+    <style>
+        #rightDrawer {
+            position: fixed;
+            right: -300px; /* Initially hidden outside of the screen */
+            top: 0;
+            width: 300px; /* Adjust the width as needed */
+            height: 100%;
+            background-color: #2e2e2e;
+            color: rgb(185, 185, 185);
+            transition: right 0.3s; /* Add a smooth transition effect */
+        }
+    
+        #rightDrawerContent {
+            padding: 10px;
+        }
+    </style>
+    
+    <div id="rightDrawer">
+        <div id="rightDrawerContent">
+            <h1>Settings</h1>
+            <p>Right-Side Drawer Content</p>
+            <button id="closeRightDrawer">Close Drawer</button>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('closeRightDrawer').addEventListener('click', function () {
+            var rightDrawer = document.getElementById('rightDrawer');
+            rightDrawer.style.right = '-300px'; // Adjust this value to hide the drawer
+            isRightDrawerOpen = false;
+        });
+    </script>
+   
+</html>
